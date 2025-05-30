@@ -60,6 +60,8 @@ public class WebSecurityConfig {
             .formLogin(form -> form
                 .loginPage("/login")  // ログインページのURL
                 .permitAll()
+                .defaultSuccessUrl("/home", true)  // ログイン成功後のリダイレクト
+                .failureUrl("/login?error")
             )
             .logout(logout -> logout
                 .permitAll()

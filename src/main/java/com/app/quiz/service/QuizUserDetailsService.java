@@ -43,6 +43,8 @@ public class QuizUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("ユーザーが見つかりません: " + username);
         }
 
+        System.out.println("user："+ user);
+
         // Spring SecurityのUserオブジェクトを構築
         return  new QuizUser(user);
     }
