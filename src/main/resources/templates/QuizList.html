@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz List</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* Quiz container styles */
+        .quiz-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .options {
+            margin-left: 20px;
+        }
+
+        .correct-answer {
+            color: green;
+            font-weight: bold;
+        }
+
+        /* Button styles */
+        .add-quiz-button, .edit-quiz-button, .delete-quiz-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-quiz-button {
+            background-color: #4CAF50;
+        }
+
+        .edit-quiz-button {
+            background-color: #2196F3;
+        }
+
+        .delete-quiz-button {
+            background-color: #f44336;
+        }
+
+        .add-quiz-button:hover, .edit-quiz-button:hover, .delete-quiz-button:hover {
+            opacity: 0.8;
+        }
+
+        /* Logout button styles */
+        .logout-button {
+            background-color: #2196F3; /* Blue background */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section with Logout Button -->
+    <div class="header">
+        <h1>Quiz Questions</h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </div>
+
+    <!-- Add Quiz Button -->
+    <div style="padding: 20px;">
+        <a th:href="@{/addQuiz}">
+            <button class="add-quiz-button">Add Quiz</button>
+        </a>
+    </div>
+
+    <!-- Quiz List -->
+    <div style="padding: 20px;">
+        <div th:each="quiz : ${quizzes}" class="quiz-container">
+            <div class="question" th:text="${'Question: ' + quiz.questionText}"></div>
+            <div class="options">
+                <ul>
+                    <li th:each="option : ${quiz.options}" th:text="${option}"></li>
+                </ul>
+            </div>
+            <div class="correct-answer" th:text="${'Correct Answer: ' + quiz.correctAnswer}"></div>
+            <!-- Edit Button -->
+            <a th:href="@{/editQuiz/{id}(id=${quiz.id})}">
+                <button class="edit-quiz-button">Edit Quiz</button>
+            </a>
+            <!-- Delete Button -->
+            <a th:href="@{/deleteQuiz/{id}(id=${quiz.id})}">
+                <button class="delete-quiz-button">Delete Quiz</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

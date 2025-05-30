@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <style>
+        .quiz-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options {
+            margin-left: 20px;
+        }
+        .submit-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+        
+        /* Logout button styles */
+        .logout-button {
+            background-color: #2196F3; /* Blue background */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header section with Logout Button -->
+    <div class="header">
+        <h1>Quiz Questions</h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </div>
+    <form th:action="@{/submitQuiz}" method="post">
+        <div th:each="quiz, iterStat : ${quizzes}" class="quiz-container">
+            <div class="question" th:text="${'Question ' + (iterStat.index + 1) + ': ' + quiz.questionText}"></div>
+            <div class="options">
+                <ul>
+                    <li th:each="option, optStat : ${quiz.options}">
+                        <input type="radio" th:name="${'answer' + iterStat.index}" th:value="${option}" th:id="${'option' + iterStat.index + '-' + optStat.index}" required>
+                        <label th:for="${'option' + iterStat.index + '-' + optStat.index}" th:text="${option}"></label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <button type="submit" class="submit-button">Submit Answers</button>
+    </form>
+</body>
+</html>
