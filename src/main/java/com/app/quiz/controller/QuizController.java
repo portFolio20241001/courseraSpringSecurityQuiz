@@ -22,6 +22,18 @@ import com.app.quiz.service.QuizUserDetailsService;
 import com.app.quiz.model.Quiz;
 import com.app.quiz.service.QuestionsService;
 
+/*
+*mvn clean (maven clean) を使用して既存のクラスファイルをクリーンし、
+*mvn install (maven install) を使用してプロジェクトディレクトリ内のファイルをコンパイルし、実行可能な jar ファイルを生成します。
+*
+* 「　mvn clean install　」を実行
+*
+*
+*次のコマンドを実行してアプリケーションを起動します。ポート 8080 で起動します。
+*mvn exec:java -Dexec.mainClass="com.app.quiz.QuizApplication"
+*/
+
+
 @Controller // コントローラーであることを示すアノテーション
 public class QuizController {
 
